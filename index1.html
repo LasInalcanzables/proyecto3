@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda de Peluches</title>
+   <link rel="stylesheet" href="estilos.css">
+   <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+   background-color:#8B008B;
+background-image: linear-gradient(90deg, rgba(255,255,255,.07) 50%, transparent 50%),
+linear-gradient(90deg, rgba(255,255,255,.13) 50%, transparent 50%),
+linear-gradient(90deg, transparent 50%, rgba(255,255,255,.17) 50%),
+linear-gradient(90deg, transparent 50%, rgba(255,255,255,.19) 50%);
+background-size: 13px, 29px, 37px, 53px;
+background-attachment: fixed; 
+ 
+font-family:helvetica, arial, sans-serif;
+line-height:20px;
+}
+.container {
+            margin: 20px;
+            padding: 20px;
+            background-color: #8B008B;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+   .title {
+      margin-top: 80px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #4a006e;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+	</style>
+</head>
+<body>
+ <div class="navbar">
+        <a href="portada.html" class="active">REGISTRO</a>
+        <a href="trabajo.html">PRODUCTOS</a>
+		 <a href="index2.html">AGREGAR USUARIO</a>
+       
+    </div>
+<center>
+<div class="title">DISEÑA TU PELUCHE</div>
+ <div class="container">
+        <div class="section">
+            <label for="pelucheNombre">Nombre del Peluche:</label>
+            <input type="text" id="pelucheNombre" placeholder="Escribe el nombre de tu peluche">
+        </div>
+
+        <div class="section">
+            <label for="pelucheColor">Color del Peluche:</label>
+            <input type="color" id="pelucheColor">
+        </div>
+
+        <div class="section">
+            <label for="pelucheOjos">Color de Ojos:</label>
+            <input type="color" id="pelucheOjos">
+        </div>
+
+        <div class="section">
+            <label for="pelucheAccesorio">Accesorio del Peluche:</label>
+            <input type="text" id="pelucheAccesorio" placeholder="Escribe un accesorio para tu peluche">
+        </div>
+
+        <div class="result">
+            <h2>¡Aquí está tu Peluche!</h2>
+            <p id="nombreResultado">Nombre: </p>
+            <p id="colorResultado">Color: </p>
+            <p id="ojosResultado">Ojos: </p>
+            <p id="accesorioResultado">Accesorio: </p>
+            
+        </div>
+    </div>
+
+    <script>
+        const nombreInput = document.getElementById('pelucheNombre');
+        const colorInput = document.getElementById('pelucheColor');
+        const ojosInput = document.getElementById('pelucheOjos');
+        const accesorioInput = document.getElementById('pelucheAccesorio');
+        
+        const nombreResultado = document.getElementById('nombreResultado');
+        const colorResultado = document.getElementById('colorResultado');
+        const ojosResultado = document.getElementById('ojosResultado');
+        const accesorioResultado = document.getElementById('accesorioResultado');
+        const pelucheImagen = document.getElementById('pelucheImagen');
+
+       
+        function actualizarPeluche() {
+            nombreResultado.textContent = "Nombre: " + nombreInput.value;
+            colorResultado.textContent = "Color: " + colorInput.value;
+            ojosResultado.textContent = "Ojos: " + ojosInput.value;
+            accesorioResultado.textContent = "Accesorio: " + accesorioInput.value;
+
+        
+        }
+
+    
+        nombreInput.addEventListener('input', actualizarPeluche);
+        colorInput.addEventListener('input', actualizarPeluche);
+        ojosInput.addEventListener('input', actualizarPeluche);
+        accesorioInput.addEventListener('input', actualizarPeluche);
+    </script>
+</center>
+</body>
+</html>

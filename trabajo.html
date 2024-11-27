@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Peluches</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #DA70D6;
+            background-image: linear-gradient(90deg, rgba(255,255,255,.07) 50%, transparent 50%),
+                              linear-gradient(90deg, rgba(255,255,255,.13) 50%, transparent 50%),
+                              linear-gradient(90deg, transparent 50%, rgba(255,255,255,.17) 50%),
+                              linear-gradient(90deg, transparent 50%, rgba(255,255,255,.19) 50%);
+            background-size: 13px, 29px, 37px, 53px;
+            background-attachment: fixed;
+        }
+
+        .menu > li > a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #00008B;
+        }
+
+        .menu > li:hover > a {
+            background-color: #00008B;
+        }
+
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #00008B;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            min-width: 200px;
+            z-index: 1000;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #00008B;
+        }
+
+        .submenu li:hover a {
+            background-color: #9400D3;
+        }
+
+        .menu > li:hover .submenu {
+            display: block;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        .navbar a.active {
+            border-bottom: 2px solid red;
+        }
+
+        .header {
+            background-color: #9400D3;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-icon img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            font-size: 14px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .producto {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .producto img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .producto h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .producto p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .producto button {
+            background-color: #800080;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .producto button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #9400D3;
+            color: white;
+            margin-top: 20px;
+        }
+
+        /* Estilos para el carrito */
+        #cartContainer {
+            background-color: white;
+            padding: 20px;
+            max-width: 500px;
+            margin: 20px auto;
+            border-radius: 8px;
+            display: none; /* Ocultar por defecto */
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .empty-cart {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <h1>Tienda de Peluches</h1>
+        <div class="cart-icon" onclick="toggleCart()">
+            <img src="https://img.icons8.com/ios-filled/50/shopping-cart.png" alt="Carrito">
+            <div id="cartCount" class="cart-count">0</div>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <a href="portada.html">REGISTRO</a>
+        <a href="index1.html">DISEÑA TU PROPIO PELUCHE</a>
+        <a href="index2.html">AGREGAR USUARIO</a>
+    </div>
+
+    <div class="productos-grid">
+        <div class="producto">
+            <img src="img1.png" alt="Peluche 1">
+            <h3>Peluche 1</h3>
+            <p>$391.00</p>
+            <button onclick="addToCart('Peluche 1', 391)">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+            <img src="img2.png" alt="Peluche 2">
+            <h3>Peluche 2</h3>
+            <p>$120.00</p>
+            <button onclick="addToCart('Peluche 2', 120)">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+            <img src="img3.png" alt="Peluche 3">
+            <h3>Peluche 3</h3>
+            <p>$126.00</p>
+            <button onclick="addToCart('Peluche 3', 126)">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+            <img src="img4.png" alt="Peluche 4">
+            <h3>Peluche 4</h3>
+            <p>$1,120.00</p>
+            <button onclick="addToCart('Peluche 4', 1120)">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+            <img src="img5.png" alt="Peluche 5">
+            <h3>Peluche 5</h3>
+            <p>$349.00</p>
+            <button onclick="addToCart('Peluche 5', 349)">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+            <img src="img6.png" alt="Peluche 6">
+            <h3>Peluche 6</h3>
+            <p>$895.00</p>
+            <button onclick="addToCart('Peluche 6', 895)">Añadir al carrito</button>
+        </div>
+		 <div class="producto">
+            <img src="img7.png" alt="Peluche 6">
+            <h3>Peluche 7</h3>
+            <p>$299.00</p>
+            <button onclick="addToCart('Peluche 6', 895)">Añadir al carrito</button>
+        </div>
+		<div class="producto">
+            <img src="img8.png" alt="Peluche 6">
+            <h3>Peluche 8</h3>
+            <p>$500.00</p>
+            <button onclick="addToCart('Peluche 6', 895)">Añadir al carrito</button>
+        </div>
+		<div class="producto">
+            <img src="img9.png" alt="Peluche 6">
+            <h3>Peluche 9</h3>
+            <p>$300.00</p>
+            <button onclick="addToCart('Peluche 6', 895)">Añadir al carrito</button>
+        </div>
+		<div class="producto">
+            <img src="img10.png" alt="Peluche 6">
+            <h3>Peluche 10</h3>
+            <p>$599.00</p>
+            <button onclick="addToCart('Peluche 6', 895)">Añadir al carrito</button>
+        </div>
+    </div>
+
+    <!-- Carrito -->
+    <div id="cartContainer">
+        <h2>Carrito de Compras</h2>
+        <div id="cartItems"></div>
+        <p id="cartTotal">Total: $0</p>
+    </div>
+
+    <footer>
+        <p>© 2024 Tienda de Peluches. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartTotalContainer = document.getElementById('cartTotal');
+
+            cartCount.textContent = cart.length;
+
+            let total = 0;
+            cartItemsContainer.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <span>${item.name} - $${item.price}</span>
+                    <button onclick="removeFromCart(${index})">Eliminar</button>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+            });
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart">Tu carrito está vacío.</p>';
+            }
+
+            cartTotalContainer.textContent = `Total: $${total}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function toggleCart() {
+            const cartContainer = document.getElementById('cartContainer');
+            if (cartContainer.style.display === 'none' || cartContainer.style.display === '') {
+                cartContainer.style.display = 'block';
+            } else {
+                cartContainer.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>
